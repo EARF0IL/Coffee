@@ -1,13 +1,14 @@
 import sqlite3
 import sys
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QWidget, QApplication
-from PyQt5 import uic
+from main_ui import *
+from addEditCoffeeForm import *
 
 
-class Edit(QWidget):
+class Edit(QWidget, Ui_Form):
     def __init__(self, conn, parent, id=None):
         super().__init__()
-        uic.loadUi('addEditCoffeeForm.ui', self)
+        self.setupUi(self)
         self.id = id
         self.parent = parent
         self.pushButton.clicked.connect(self.submit)
@@ -44,10 +45,10 @@ class Edit(QWidget):
         self.close()
 
 
-class Application(QMainWindow):
+class Application(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
-        uic.loadUi('main.ui', self)
+        self.setupUi(self)
         self.conn = sqlite3.connect("coffee.sqlite")
         self.pushButton.clicked.connect(self.add_data)
         self.pushButton_2.clicked.connect(self.edit_data)
